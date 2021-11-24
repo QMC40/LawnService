@@ -19,12 +19,17 @@ namespace LawnService.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Services()
         {
             return View();
         }
 
-        public IActionResult Benefits()
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }

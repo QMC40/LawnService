@@ -35,10 +35,7 @@ namespace LawnService.Controllers
                     Email = model.Email,
                     FName = model.FName,
                     LName = model.LName,
-                    SSN = model.SSN,
-                    PhoneNumber = model.PhoneNumber,
-                    DoB = model.DoB,
-                    Address = model.Address
+                    PhoneNumber = model.PhoneNumber
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

@@ -20,64 +20,68 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
         <div class="container">
+            <img src="~/img/logo.jpg" alt="Clipper Green logo"/>
             <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="/">Start</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=
                     "#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img src="img/logo.jpg"/>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto" style="list-style-type:none;">
+                <ul class="navbar-nav mx-auto" style="list-style-type: none;">
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="JobList" asp-action="Index">Services</a>
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Services">Services</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Benefits">Contact us</a>
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="ContactUs">Contact us</a>
                     </li>
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase" asp-controller="Home" asp-action="About">About</a>
                     </li>
+                    @inject SignInManager<User> signInManager
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        // signed-in user - Log Out button and username
+                        <li class="nav-item px-lg-4">
+                            <form method="post" asp-action="Logout" asp-controller="Account"
+                                  asp-area="">
+                                <input type="submit" value="LOG OUT"
+                                       class="btn btn-outline-light"/>
+                                <span class="text-light">@User.Identity.Name</span>
+                            </form>
+                        </li>
+                        <li class="nav-item px-lg-4">
+                            <a class="nav-link" asp-action="ChangePassword" asp-controller="User" asp-area="Admin">
+                                <span class="fas fa-cog"></span>&nbsp;Change Password</a>
+                        </li>
+                    }
+                    else
+                    {
+                        // get current action
+                        var action = ViewContext.RouteData.Values["action"]?.ToString();
+                        // anonymous user - Register link and Log In button
+                        <li class="nav-item px-lg-4 @Nav.Active("Register", action)">
+                            <a asp-action="Register" asp-controller="Account"
+                               asp-area="" class="nav-link">
+                                REGISTER
+                            </a>
+                        </li>
+                        <li class="nav-item px-lg-4">
+                            <a asp-action="Login" asp-controller="Account"
+                               asp-area="" class="btn btn-outline-light">
+                                LOG IN
+                            </a>
+                        </li>
+                    }
+                    <li class="nav-item px-lg-4 @Nav.Active("Admin", current)">
+                        <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin">
+                            <span class="fas fa-cog"></span>&nbsp;ADMIN</a>
+                    </li>
                 </ul>
-                @inject SignInManager<User> signInManager
-                @if (signInManager.IsSignedIn(User))
-                {
-                    // signed-in user - Log Out button and username
-                    <li class="nav-item">
-                        <form method="post" asp-action="Logout" asp-controller="Account"
-                              asp-area="">
-                            <input type="submit" value="Log Out"
-                                   class="btn btn-outline-light" />
-                            <span class="text-light">@User.Identity.Name</span>
-                        </form>
-                    </li>
-                }
-                else
-                {
-                    // get current action
-                    var action = ViewContext.RouteData.Values["action"]?.ToString();
-                    // anonymous user - Register link and Log In button
-                    <li class="nav-item @Nav.Active("Register", action)">
-                        <a asp-action="Register" asp-controller="Account"
-                           asp-area="" class="nav-link">
-                            Register
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-action="Login" asp-controller="Account"
-                           asp-area="" class="btn btn-outline-light">
-                            Log In
-                        </a>
-                    </li>
-                }
-                <li class="nav-item @Nav.Active("Admin", current)">
-                    <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin">
-                        <span class="fas fa-cog"></span>&nbsp;Admin
-                    </a>
-                </li>
             </div>
         </div>
     </nav>
@@ -117,7 +121,7 @@
                     Created by <a href="mailto:pcarroll1@islander.tamucc.edu">Patrick Carroll</a><br/>
                     Created by <a href="mailto:afortner@islander.tamucc.edu">Aaron Fortner</a><br/>
                     Created by <a href="mailto:jmontis@islander.tamucc.edu">James Montis</a><br/>
-                    [FALL-21] COSC-3370-001 - SOFTWARE ENGINEERING
+                    [FALL-21] COSC-3351-W01 - INTERNET PROGRAMMING
                 </address>
             </div>
         </div>

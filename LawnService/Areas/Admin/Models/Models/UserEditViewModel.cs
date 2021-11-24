@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LawnService.Models.ViewModels
+namespace LawnService.Areas.Admin.Models.Models
 {
     public class UserEditViewModel
     {

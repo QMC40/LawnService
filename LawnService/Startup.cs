@@ -1,4 +1,4 @@
-using LawnService.Models;
+using LawnService.Data;
 using LawnService.Models.DomainModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,8 +26,8 @@ namespace LawnService
             //was easier to hard code it here...
 
             var connectionString =
-                "Server=(localdb)\\mssqllocaldb;Database=Jobs;Trusted_Connection=True;MultipleActiveResultSets=true";
-            services.AddDbContextPool<JobManagerContext>(options =>
+                "Server=(localdb)\\mssqllocaldb;Database=Lawns;Trusted_Connection=True;MultipleActiveResultSets=true";
+            services.AddDbContextPool<LawnServiceDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -42,7 +42,7 @@ namespace LawnService
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireDigit = false;
                 })
-                .AddEntityFrameworkStores<JobManagerContext>()
+                .AddEntityFrameworkStores<LawnServiceDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddRazorPages();
@@ -72,7 +72,7 @@ namespace LawnService
             app.UseAuthentication();
             app.UseAuthorization();
 
-            JobManagerContext.CreateAdminUser(app.ApplicationServices).Wait();
+            LawnServiceDbContext.CreateAdminUser(app.ApplicationServices).Wait();
 
             app.UseEndpoints(endpoints =>
             {

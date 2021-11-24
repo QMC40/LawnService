@@ -4,8 +4,6 @@ namespace LawnService.Models.ViewModels
 {
     public class ChangePasswordViewModel
     {
-        public string Username { get; set; }
-
         [Required(ErrorMessage = "Please enter password.")]
         public string OldPassword { get; set; }
 

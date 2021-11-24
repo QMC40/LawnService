@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LawnService.Areas.Admin.Models;
+using LawnService.Areas.Admin.Models.Models;
 using LawnService.Models.DomainModels;
 using LawnService.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawnService.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]    //XXXXXX turned off during development XXXXXXXXXX
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -69,12 +69,9 @@ namespace LawnService.Areas.Admin.Controllers
                     Email = user.Email,
                     FName = user.FName,
                     LName = user.LName,
-                    SSN = user.SSN,
-                    DoB = user.DoB,
-                    PhoneNumber = user.PhoneNumber,
-                    Address = user.Address,
+                    PhoneNumber = user.PhoneNumber
                 };
-                return View(subj);
+                return View(subj); //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
             }
 
             return Ok("fail");
@@ -89,9 +86,6 @@ namespace LawnService.Areas.Admin.Controllers
                 user.Email = model.Email;
                 user.FName = model.FName;
                 user.LName = model.LName;
-                user.SSN = model.SSN;
-                user.DoB = model.DoB;
-                user.Address = model.Address;
                 user.PhoneNumber = model.PhoneNumber;
 
                 var result = await userManager.UpdateAsync(user);
@@ -121,10 +115,7 @@ namespace LawnService.Areas.Admin.Controllers
                     Email = model.Email,
                     FName = model.FName,
                     LName = model.LName,
-                    SSN = model.SSN,
-                    DoB = model.DoB,
-                    PhoneNumber = model.PhoneNumber,
-                    Address = model.Address
+                    PhoneNumber = model.PhoneNumber
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -186,6 +177,39 @@ namespace LawnService.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var subj = new ChangePasswordViewModel();
+
+            return View(subj);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(
+            ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await userManager.GetUserAsync(User);
+                var result = await userManager.ChangePasswordAsync(user,
+                    model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+
+            return View(model);
         }
     }
 }

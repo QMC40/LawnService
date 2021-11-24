@@ -17,10 +17,6 @@ namespace LawnService.Models.ViewModels
         [StringLength(60, ErrorMessage = "enter something", MinimumLength = 3)]
         public string LName { get; set; }
 
-        [Required(ErrorMessage = "Valid SSN required.")]
-        [RegularExpression("^\\d{3}-\\d{2}-\\d{4}$")]
-        public string SSN { get; set; }
-
         [Required(ErrorMessage = "Date of Birth required.")]
         [DataType(DataType.Date)]
         public DateTime DoB { get; set; }
