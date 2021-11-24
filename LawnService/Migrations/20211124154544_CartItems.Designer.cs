@@ -4,20 +4,45 @@ using LawnService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LawnService.Migrations
 {
     [DbContext(typeof(LawnServiceDbContext))]
-    partial class LawnServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211124154544_CartItems")]
+    partial class CartItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("LawnService.Models.DomainModels.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CartId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
+                });
 
             modelBuilder.Entity("LawnService.Models.DomainModels.EstimateRequest", b =>
                 {
@@ -57,7 +82,7 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("LawnService.Models.DomainModels.Order", b =>
                 {
-                    b.Property<int>("OderId")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -65,7 +90,7 @@ namespace LawnService.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("OderId");
+                    b.HasKey("OrderId");
 
                     b.ToTable("Orders");
                 });
@@ -130,29 +155,6 @@ namespace LawnService.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Product");
-                });
-
-            modelBuilder.Entity("LawnService.Models.DomainModels.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("LawnService.Models.DomainModels.User", b =>
@@ -398,6 +400,15 @@ namespace LawnService.Migrations
                     b.HasDiscriminator().HasValue("Employee");
                 });
 
+            modelBuilder.Entity("LawnService.Models.DomainModels.Cart", b =>
+                {
+                    b.HasOne("LawnService.Models.DomainModels.Product", "product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("product");
+                });
+
             modelBuilder.Entity("LawnService.Models.DomainModels.OrderItem", b =>
                 {
                     b.HasOne("LawnService.Models.DomainModels.Order", null)
@@ -405,15 +416,6 @@ namespace LawnService.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LawnService.Models.DomainModels.ShoppingCartItem", b =>
-                {
-                    b.HasOne("LawnService.Models.DomainModels.Product", "product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

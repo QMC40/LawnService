@@ -19,6 +19,9 @@ namespace LawnService.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         public static async Task CreateAdminUser(IServiceProvider serviceProvider)
         {
@@ -49,5 +52,7 @@ namespace LawnService.Data
                 if (result.Succeeded) await userManager.AddToRoleAsync(user, roleName);
             }
         }
+
+        public DbSet<LawnService.Models.DomainModels.Product> Product { get; set; }
     }
 }

@@ -1,12 +1,16 @@
 using LawnService.Data;
 using LawnService.Models.DomainModels;
+using LawnService.Models.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+
 
 namespace LawnService
 {
@@ -45,8 +49,14 @@ namespace LawnService
                 .AddEntityFrameworkStores<LawnServiceDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            services.AddMemoryCache();
+            services.AddSession();
+
             services.AddRazorPages();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +83,8 @@ namespace LawnService
             app.UseAuthorization();
 
             LawnServiceDbContext.CreateAdminUser(app.ApplicationServices).Wait();
+            app.UseSession();
+
 
             app.UseEndpoints(endpoints =>
             {
