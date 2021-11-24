@@ -1,0 +1,140 @@
+﻿@model LawnService.Models.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Add User";
+}
+
+<h2>Add User</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form method="post" asp-action="Add">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Email address</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Email" class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Email"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>First Name:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" asp-for="FName"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="FName"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Last Name:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" asp-for="LName"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="LName"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>SSN:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" asp-for="SSN"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="SSN"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Date of Birth:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="date" asp-for="DoB" value="1990-01-01" min="1930-01-01" max="2030-01-01"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="DoB"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Address:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" asp-for="Address"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Address"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Phone Number:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" asp-for="PhoneNumber"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="PhoneNumber"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Password:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="Password"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="Password"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Confirm Password:</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="ConfirmPassword"
+                   class="form-control"/>
+        </div>
+        <div class="col">
+            <span asp-validation-for="ConfirmPassword"
+                  class="text-danger">
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </div>
+</form>

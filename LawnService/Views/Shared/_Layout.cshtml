@@ -1,0 +1,146 @@
+﻿@using LawnService.Models.DomainModels
+@using LawnService.Models.ViewModels
+@using Microsoft.AspNetCore.Identity
+@{
+    // use current controller or area to determine if tab is active
+    var current = ViewContext.RouteData.Values["area"]?.ToString() ??
+                  ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<header>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="/">Start</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=
+                    "#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img src="img/logo.jpg"/>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto" style="list-style-type:none;">
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase" asp-controller="JobList" asp-action="Index">Services</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Benefits">Contact us</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                </ul>
+                @inject SignInManager<User> signInManager
+                @if (signInManager.IsSignedIn(User))
+                {
+                    // signed-in user - Log Out button and username
+                    <li class="nav-item">
+                        <form method="post" asp-action="Logout" asp-controller="Account"
+                              asp-area="">
+                            <input type="submit" value="Log Out"
+                                   class="btn btn-outline-light" />
+                            <span class="text-light">@User.Identity.Name</span>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    // get current action
+                    var action = ViewContext.RouteData.Values["action"]?.ToString();
+                    // anonymous user - Register link and Log In button
+                    <li class="nav-item @Nav.Active("Register", action)">
+                        <a asp-action="Register" asp-controller="Account"
+                           asp-area="" class="nav-link">
+                            Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-action="Login" asp-controller="Account"
+                           asp-area="" class="btn btn-outline-light">
+                            Log In
+                        </a>
+                    </li>
+                }
+                <li class="nav-item @Nav.Active("Admin", current)">
+                    <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin">
+                        <span class="fas fa-cog"></span>&nbsp;Admin
+                    </a>
+                </li>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="footer text-faded text-center py-5">
+    <div class="container">
+        <h4>
+            <strong>Citations / Refs</strong>
+        </h4>
+        <div class="row justify-start align-center justify-content-center align-content-center">
+            <div class="col-4">
+                <a href="https://www.w3schools.com/">
+                    <cite>w3schools.com</cite>
+                </a>
+            </div>
+            <div class="col-4">
+                <a href="https://getbootstrap.com/">
+                    <cite>getbootstrap.com</cite>
+                </a>
+            </div>
+            <div class="col-4">
+                <a href="https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0">
+                    <cite>MS ASP.NET Docs</cite>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-end text-end">
+            <div class="col-8 text-right">
+                <address>
+                    Created by <a href="mailto:pcarroll1@islander.tamucc.edu">Patrick Carroll</a><br/>
+                    Created by <a href="mailto:afortner@islander.tamucc.edu">Aaron Fortner</a><br/>
+                    Created by <a href="mailto:jmontis@islander.tamucc.edu">James Montis</a><br/>
+                    [FALL-21] COSC-3370-001 - SOFTWARE ENGINEERING
+                </address>
+            </div>
+        </div>
+        <div class="row">
+            <p class="m-0 small">Copyright &copy; Group Think Inc 2021</p>
+        </div>
+        <div class="row justify-content-end text-end">
+            <div class="col-8 text-left">
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+            <div class="col-4 text-right">
+                <a asp-area="" asp-controller="Home" asp-action="Disclaimer">Disclaimer</a>
+            </div>
+        </div>
+    </div>
+
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", false)
+</html>

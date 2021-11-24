@@ -1,0 +1,50 @@
+﻿@model IEnumerable<LawnService.Models.DomainModels.Job>
+
+
+<body>
+<header>
+    <h1 class="site-heading text-center text-faded d-none d-lg-block">
+        <span class="site-heading-upper text-primary mb-3">Job Admin page</span>
+    </h1>
+</header>
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+
+                    <form>
+                        <input type="submit" value="Create New Job" class="btn btn-primary" asp-controller="JobList" asp-action="Add"/>
+                    </form>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Store</th>
+                            <th>Opening Date</th>
+                            <th>Close Date</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.PositionId</td>
+                                <td>@item.StoreId</td>
+                                <td>@item.OpenDate.ToShortDateString()</td>
+                                <td>@item.CloseDate.ToShortDateString()</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.JobId">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.JobId">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
