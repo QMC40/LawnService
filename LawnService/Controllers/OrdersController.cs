@@ -44,6 +44,17 @@ namespace LawnService.Controllers
             return View(response);
         }
 
+        public async Task<IActionResult> AddItemToShoppingCart(int id)
+        {
+            var item = await _productsService.GetProductByIdAsync(id);
+
+            if (item != null)
+            {
+                _shoppingCart.AddItemToCart(item);
+            }
+            return RedirectToAction(nameof(ShoppingCart));
+        }
+
         public async Task<IActionResult> RemoveItemFromShoppingCart(int id)
         {
             var item = await _productsService.GetProductByIdAsync(id);
@@ -61,7 +72,7 @@ namespace LawnService.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _ordersService.StoreOrderAsync(items, userId);
             await _shoppingCart.ClearShoppingCartAsync();
 
             return View("OrderCompleted");

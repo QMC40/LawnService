@@ -19,7 +19,7 @@ namespace LawnService.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.EstimateRequest", b =>
+            modelBuilder.Entity("LawnService.Models.EstimateRequest", b =>
                 {
                     b.Property<int>("RequestId")
                         .ValueGeneratedOnAdd()
@@ -55,27 +55,30 @@ namespace LawnService.Migrations
                     b.ToTable("EstimateRequests");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.Order", b =>
+            modelBuilder.Entity("LawnService.Models.Order", b =>
                 {
-                    b.Property<int>("OderId")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OderId");
+                    b.HasKey("OrderId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.OrderItem", b =>
+            modelBuilder.Entity("LawnService.Models.OrderItem", b =>
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -83,7 +86,7 @@ namespace LawnService.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Id ")
+                    b.Property<int>("ProdId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -96,7 +99,7 @@ namespace LawnService.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.Position", b =>
+            modelBuilder.Entity("LawnService.Models.Position", b =>
                 {
                     b.Property<int>("PositionId")
                         .ValueGeneratedOnAdd()
@@ -111,14 +114,14 @@ namespace LawnService.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.Product", b =>
+            modelBuilder.Entity("LawnService.Models.Product", b =>
                 {
-                    b.Property<int>("Id ")
+                    b.Property<int>("ProdId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("CostPerHour")
+                    b.Property<double>("CostPerUnit")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
@@ -127,12 +130,12 @@ namespace LawnService.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id ");
+                    b.HasKey("ProdId");
 
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.ShoppingCartItem", b =>
+            modelBuilder.Entity("LawnService.Models.ShoppingCartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,7 +145,7 @@ namespace LawnService.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Id ")
+                    b.Property<int?>("ProductProdId")
                         .HasColumnType("int");
 
                     b.Property<string>("ShoppingCartId")
@@ -150,12 +153,12 @@ namespace LawnService.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id ");
+                    b.HasIndex("ProductProdId");
 
                     b.ToTable("ShoppingCartItems");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.User", b =>
+            modelBuilder.Entity("LawnService.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -372,16 +375,16 @@ namespace LawnService.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.Customer", b =>
+            modelBuilder.Entity("LawnService.Models.Customer", b =>
                 {
-                    b.HasBaseType("LawnService.Models.DomainModels.User");
+                    b.HasBaseType("LawnService.Models.User");
 
                     b.HasDiscriminator().HasValue("Customer");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.Employee", b =>
+            modelBuilder.Entity("LawnService.Models.Employee", b =>
                 {
-                    b.HasBaseType("LawnService.Models.DomainModels.User");
+                    b.HasBaseType("LawnService.Models.User");
 
                     b.Property<DateTime>("DoB")
                         .HasColumnType("datetime2");
@@ -398,20 +401,20 @@ namespace LawnService.Migrations
                     b.HasDiscriminator().HasValue("Employee");
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.OrderItem", b =>
+            modelBuilder.Entity("LawnService.Models.OrderItem", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.Order", null)
+                    b.HasOne("LawnService.Models.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.ShoppingCartItem", b =>
+            modelBuilder.Entity("LawnService.Models.ShoppingCartItem", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.Product", "Product")
+                    b.HasOne("LawnService.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("Id ");
+                        .HasForeignKey("ProductProdId");
 
                     b.Navigation("Product");
                 });
@@ -427,7 +430,7 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.User", null)
+                    b.HasOne("LawnService.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -436,7 +439,7 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.User", null)
+                    b.HasOne("LawnService.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -451,7 +454,7 @@ namespace LawnService.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LawnService.Models.DomainModels.User", null)
+                    b.HasOne("LawnService.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -460,14 +463,14 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.User", null)
+                    b.HasOne("LawnService.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LawnService.Models.DomainModels.Order", b =>
+            modelBuilder.Entity("LawnService.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
                 });

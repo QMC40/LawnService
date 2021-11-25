@@ -19,10 +19,10 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CostPerHour)
+            @Html.DisplayNameFor(model => model.CostPerUnit)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CostPerHour)
+            @Html.DisplayFor(model => model.CostPerUnit)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
@@ -33,7 +33,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id " />
+        <input type="hidden" asp-for="ProdId " />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

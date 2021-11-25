@@ -32,7 +32,7 @@ namespace LawnService.Data
         public void AddItemToCart(Product product)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.Product.Id == product.Id
+            (n => n.Product.ProdId == product.ProdId
                   && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem == null)
             {
@@ -54,7 +54,7 @@ namespace LawnService.Data
         public void RemoveItemFromCart(Product product)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.Product.Id == product.Id
+            (n => n.Product.ProdId == product.ProdId
                   && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem != null)
             {
@@ -87,7 +87,7 @@ namespace LawnService.Data
         {
             var total = _context.ShoppingCartItems.Where
                 (n => n.ShoppingCartId == ShoppingCartId).Select
-                (n => n.Product.CostPerHour * n.Amount).Sum();
+                (n => n.Product.CostPerUnit * n.Amount).Sum();
             return total;
         }
     }

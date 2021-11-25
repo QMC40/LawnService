@@ -30,10 +30,10 @@ namespace LawnService
             //add in Db service for injection - done here because the JSON appsettings was not working for some formatting reason and it
             //was easier to hard code it here...
 
-            // var connectionString =
-            //     "Server=(localdb)\\mssqllocaldb;Database=Lawns;Trusted_Connection=True;MultipleActiveResultSets=true";
-            // services.AddDbContextPool<LawnServiceDbContext>(options =>
-            //     options.UseSqlServer(connectionString));
+            var connectionString =
+            "Server=(localdb)\\mssqllocaldb;Database=Lawns;Trusted_Connection=True;MultipleActiveResultSets=true";
+            services.AddDbContextPool<LawnServiceDbContext>(options =>
+                options.UseSqlServer(connectionString));
             //DbContext configuration
             services.AddDbContext<LawnServiceDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 

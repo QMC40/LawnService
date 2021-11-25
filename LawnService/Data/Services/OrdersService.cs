@@ -14,9 +14,12 @@ namespace LawnService.Data.Services
             _context = context;
         }
 
+
+
         public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
-            var orders = await _context.Orders.Include(n => n.OrderItems).ThenInclude(n => n.Product).Include(n => n.User).ToListAsync();
+            var orders = await _context.Orders.Include(n => n.OrderItems).ToListAsync();
+            // .ThenInclude(n => n.ItemName).Include(n => n.User).ToListAsync();
 
             if (userRole != "Admin")
             {
@@ -26,12 +29,11 @@ namespace LawnService.Data.Services
             return orders;
         }
 
-        public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress)
+        public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId)
         {
             var order = new Order()
             {
-                UserId = userId,
-                // Email = userEmailAddress
+                UserId = userId
             };
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
@@ -40,10 +42,9 @@ namespace LawnService.Data.Services
             {
                 var orderItem = new OrderItem()
                 {
-                    Quantity = OrderItem.Quantity,
-                    Id = item.Id,
-                    OrderId = order.OrderId,
-                    Price = item.Price
+                    Quantity = item.Amount,
+                    ProdId = item.Id,
+                    Price = item.Product.CostPerUnit
                 };
                 await _context.OrderItems.AddAsync(orderItem);
             }
