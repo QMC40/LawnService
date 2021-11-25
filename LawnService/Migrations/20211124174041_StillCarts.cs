@@ -7,7 +7,7 @@ namespace LawnService.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_CartItems_Product_ProductId",
+                name: "FK_CartItems_Product_Id ",
                 table: "CartItems");
 
             migrationBuilder.DropPrimaryKey(
@@ -24,9 +24,9 @@ namespace LawnService.Migrations
                 newName: "ShoppingCartId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_CartItems_ProductId",
+                name: "IX_CartItems_Id ",
                 table: "ShoppingCartItems",
-                newName: "IX_ShoppingCartItems_ProductId");
+                newName: "IX_ShoppingCartItems_Id ");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_ShoppingCartItems",
@@ -34,18 +34,18 @@ namespace LawnService.Migrations
                 column: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ShoppingCartItems_Product_ProductId",
+                name: "FK_ShoppingCartItems_Product_Id ",
                 table: "ShoppingCartItems",
-                column: "ProductId",
+                column: "Id ",
                 principalTable: "Product",
-                principalColumn: "ProductId",
+                principalColumn: "Id ",
                 onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_ShoppingCartItems_Product_ProductId",
+                name: "FK_ShoppingCartItems_Product_Id ",
                 table: "ShoppingCartItems");
 
             migrationBuilder.DropPrimaryKey(
@@ -62,9 +62,9 @@ namespace LawnService.Migrations
                 newName: "CartId");
 
             migrationBuilder.RenameIndex(
-                name: "IX_ShoppingCartItems_ProductId",
+                name: "IX_ShoppingCartItems_Id ",
                 table: "CartItems",
-                newName: "IX_CartItems_ProductId");
+                newName: "IX_CartItems_Id ");
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_CartItems",
@@ -72,11 +72,11 @@ namespace LawnService.Migrations
                 column: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_CartItems_Product_ProductId",
+                name: "FK_CartItems_Product_Id ",
                 table: "CartItems",
-                column: "ProductId",
+                column: "Id ",
                 principalTable: "Product",
-                principalColumn: "ProductId",
+                principalColumn: "Id ",
                 onDelete: ReferentialAction.Restrict);
         }
     }

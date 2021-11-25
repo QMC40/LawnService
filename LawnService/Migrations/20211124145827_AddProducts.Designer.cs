@@ -74,7 +74,7 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("LawnService.Models.DomainModels.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id ")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -88,7 +88,7 @@ namespace LawnService.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id ");
 
                     b.ToTable("Product");
                 });

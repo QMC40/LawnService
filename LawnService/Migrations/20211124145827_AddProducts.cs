@@ -20,7 +20,7 @@ namespace LawnService.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<double>(type: "float", nullable: false),
@@ -28,7 +28,7 @@ namespace LawnService.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ProductId);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                 });
         }
 

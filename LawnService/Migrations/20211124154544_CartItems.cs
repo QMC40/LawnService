@@ -12,7 +12,7 @@ namespace LawnService.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: true),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     CartId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -20,17 +20,17 @@ namespace LawnService.Migrations
                 {
                     table.PrimaryKey("PK_CartItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartItems_Product_ProductId",
-                        column: x => x.ProductId,
+                        name: "FK_CartItems_Product_Id ",
+                        column: x => x.Id,
                         principalTable: "Product",
-                        principalColumn: "ProductId",
+                        principalColumn: "Id ",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_ProductId",
+                name: "IX_CartItems_Id ",
                 table: "CartItems",
-                column: "ProductId");
+                column: "Id ");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

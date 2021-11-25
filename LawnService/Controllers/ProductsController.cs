@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using LawnService.Data.Services;
 using LawnService.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -31,8 +30,7 @@ namespace LawnService.Controllers
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _productsService.
-                GetProductByIdAsync(id);
+            var product = await _productsService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -48,34 +46,34 @@ namespace LawnService.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Name,Cost,Description")] Product product)
+        public async Task<IActionResult> Create([Bind("Id ,Name,Cost,Description")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _productsService.AddNewProductAsync(product);
-                await _productsService.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(product);
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
+            var product = await _productsService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
+
             return View(product);
         }
 
@@ -84,9 +82,9 @@ namespace LawnService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Cost,Description")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id ,Name,Cost,Description")] Product product)
         {
-            if (id != product.ProductId)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -95,12 +93,12 @@ namespace LawnService.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _productsService.UpdateProductAsync(id);
+                    await _productsService.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductId))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -109,21 +107,22 @@ namespace LawnService.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(product);
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = await _productsService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -132,20 +131,19 @@ namespace LawnService.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        // // POST: Products/Delete/5
+        // [HttpPost, ActionName("Delete")]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> DeleteConfirmed(int id)
+        // {
+        //     _productsService.DeleteProductAsync(id);
+        //     await _productsService.SaveChangesAsync();
+        //     return RedirectToAction(nameof(Index));
+        // }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.ProductId == id);
+            return (_productsService.GetProductByIdAsync(id) != null);
         }
     }
 }

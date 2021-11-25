@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LawnService.Data;
-using LawnService.Data.Services;
 using LawnService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace eTickets.Data.Services
+namespace LawnService.Data.Services
 {
     public class OrdersService : IOrdersService
     {
@@ -32,7 +30,7 @@ namespace eTickets.Data.Services
         {
             var order = new Order()
             {
-                // UserId = userId,
+                UserId = userId,
                 // Email = userEmailAddress
             };
             await _context.Orders.AddAsync(order);
@@ -43,7 +41,7 @@ namespace eTickets.Data.Services
                 var orderItem = new OrderItem()
                 {
                     Quantity = OrderItem.Quantity,
-                    ProductId = item.Id,
+                    Id = item.Id,
                     OrderId = order.OrderId,
                     Price = item.Price
                 };

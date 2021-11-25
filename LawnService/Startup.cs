@@ -1,5 +1,7 @@
 using LawnService.Data;
+using LawnService.Data.Services;
 using LawnService.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,13 +30,23 @@ namespace LawnService
             //add in Db service for injection - done here because the JSON appsettings was not working for some formatting reason and it
             //was easier to hard code it here...
 
-            var connectionString =
-                "Server=(localdb)\\mssqllocaldb;Database=Lawns;Trusted_Connection=True;MultipleActiveResultSets=true";
-            services.AddDbContextPool<LawnServiceDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            // var connectionString =
+            //     "Server=(localdb)\\mssqllocaldb;Database=Lawns;Trusted_Connection=True;MultipleActiveResultSets=true";
+            // services.AddDbContextPool<LawnServiceDbContext>(options =>
+            //     options.UseSqlServer(connectionString));
+            //DbContext configuration
+            services.AddDbContext<LawnServiceDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+
+            services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<IOrdersService, OrdersService>();
+
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            //authorization and authentication
             services.AddIdentity<User, IdentityRole>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
@@ -47,12 +59,12 @@ namespace LawnService
                 })
                 .AddEntityFrameworkStores<LawnServiceDbContext>()
                 .AddDefaultTokenProviders();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
-
             services.AddMemoryCache();
             services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            });
 
             services.AddRazorPages();
             services.AddControllersWithViews().AddNewtonsoftJson();

@@ -85,7 +85,7 @@ namespace LawnService.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id ")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -115,7 +115,7 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("LawnService.Models.DomainModels.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id ")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -129,7 +129,7 @@ namespace LawnService.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id ");
 
                     b.ToTable("Product");
                 });
@@ -147,12 +147,12 @@ namespace LawnService.Migrations
                     b.Property<string>("CartId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int?>("Id ")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("Id ");
 
                     b.ToTable("CartItems");
                 });
@@ -413,7 +413,7 @@ namespace LawnService.Migrations
                 {
                     b.HasOne("LawnService.Models.DomainModels.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("Id ");
 
                     b.Navigation("Product");
                 });

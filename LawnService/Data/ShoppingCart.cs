@@ -32,7 +32,7 @@ namespace LawnService.Data
         public void AddItemToCart(Product product)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.Product.ProductId == product.ProductId
+            (n => n.Product.Id == product.Id
                   && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem == null)
             {
@@ -54,7 +54,7 @@ namespace LawnService.Data
         public void RemoveItemFromCart(Product product)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.Product.ProductId == product.ProductId
+            (n => n.Product.Id == product.Id
                   && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem != null)
             {
