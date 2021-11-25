@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LawnService.Areas.Admin.Models;
-using LawnService.Areas.Admin.Models.Models;
-using LawnService.Models.DomainModels;
-using LawnService.Models.ViewModels;
+using LawnService.Data.ViewModels;
+using LawnService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +31,7 @@ namespace LawnService.Areas.Admin.Controllers
                 users.Add(user);
             }
 
-            UserViewModel model = new()
+            UserVM model = new()
             {
                 Users = users,
                 Roles = roleManager.Roles
@@ -64,7 +63,7 @@ namespace LawnService.Areas.Admin.Controllers
             var user = await userManager.FindByIdAsync(id);
             if (user != null)
             {
-                var subj = new UserEditViewModel
+                var subj = new UserEditVM
                 {
                     Email = user.Email,
                     FName = user.FName,
@@ -78,7 +77,7 @@ namespace LawnService.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserEditViewModel model)
+        public async Task<IActionResult> Edit(UserEditVM model)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +104,7 @@ namespace LawnService.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RegisterViewModel model)
+        public async Task<IActionResult> Add(RegisterVM model)
         {
             if (ModelState.IsValid)
             {
@@ -182,14 +181,14 @@ namespace LawnService.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult ChangePassword()
         {
-            var subj = new ChangePasswordViewModel();
+            var subj = new ChangePasswordVM();
 
             return View(subj);
         }
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(
-            ChangePasswordViewModel model)
+            ChangePasswordVM model)
         {
             if (ModelState.IsValid)
             {

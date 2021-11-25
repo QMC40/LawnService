@@ -1,4 +1,4 @@
-﻿namespace LawnService.Models.DomainModels
+﻿namespace LawnService.Models
 {
     public class Customer : User
     {

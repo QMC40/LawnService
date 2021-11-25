@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LawnService.Models.ViewModels
+namespace LawnService.Areas.Admin.Models
 {
-    public class RegisterViewModel
+    public class UserEditVM
     {
         [Required(ErrorMessage = "Please enter valid email address.")]
         [DataType(DataType.EmailAddress)]
@@ -17,6 +17,10 @@ namespace LawnService.Models.ViewModels
         [StringLength(60, ErrorMessage = "enter something", MinimumLength = 3)]
         public string LName { get; set; }
 
+        [Required(ErrorMessage = "Valid SSN required.")]
+        [RegularExpression("^\\d{3}-\\d{2}-\\d{4}$")]
+        public string SSN { get; set; }
+
         [Required(ErrorMessage = "Date of Birth required.")]
         [DataType(DataType.Date)]
         public DateTime DoB { get; set; }
@@ -27,15 +31,5 @@ namespace LawnService.Models.ViewModels
         [Required(ErrorMessage = "Please enter valid phone number.")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-
-        [Required(ErrorMessage = "Please enter a password.")]
-        [DataType(DataType.Password)]
-        [Compare("ConfirmPassword")]
-        public string Password { get; set; }
-
-        [Required(ErrorMessage = "Please confirm your password.")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
     }
 }

@@ -1,37 +1,38 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using LawnService.Data;
-using LawnService.Models.DomainModels;
+using LawnService.Data.Services;
+using LawnService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LawnService.Controllers
 {
+    //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    // [Authorize(Roles = UserRoles.Admin)]
+
+
     public class ProductsController : Controller
     {
-        private readonly LawnServiceDbContext _context;
+        private readonly IProductsService _productsService;
 
-        public ProductsController(LawnServiceDbContext context)
+        public ProductsController(IProductsService productsService)
         {
-            _context = context;
+            _productsService = productsService;
         }
 
-        // GET: Products
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            var allProducts = await _productsService.GetAllAsync();
+            return View(allProducts);
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = await _productsService.
+                GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -41,7 +42,7 @@ namespace LawnService.Controllers
         }
 
         // GET: Products/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
@@ -55,8 +56,8 @@ namespace LawnService.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                _productsService.AddNewProductAsync(product);
+                await _productsService.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(product);

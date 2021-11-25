@@ -1,6 +1,5 @@
 using LawnService.Data;
-using LawnService.Models.DomainModels;
-using LawnService.Models.ViewModels;
+using LawnService.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using LawnService.Models.DomainModels;
-using LawnService.Models.ViewModels;
+using LawnService.Data.ViewModels;
+using LawnService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +25,7 @@ namespace LawnService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterVM model)
         {
             //if (ModelState.IsValid)
             {
@@ -60,12 +60,12 @@ namespace LawnService.Controllers
         [HttpGet]
         public IActionResult LogIn(string returnURL = "")
         {
-            var model = new LoginViewModel { ReturnUrl = returnURL };
+            var model = new LoginVM { ReturnUrl = returnURL };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogIn(LoginViewModel model)
+        public async Task<IActionResult> LogIn(LoginVM model)
         {
             if (ModelState.IsValid)
             {

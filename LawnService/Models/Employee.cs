@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LawnService.Models.DomainModels
+namespace LawnService.Models
 {
     public class Employee : User
     {

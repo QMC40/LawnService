@@ -402,11 +402,11 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("LawnService.Models.DomainModels.Cart", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.Product", "product")
+                    b.HasOne("LawnService.Models.DomainModels.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.Navigation("product");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("LawnService.Models.DomainModels.OrderItem", b =>

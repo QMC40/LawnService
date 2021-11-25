@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LawnService.Models.ViewModels
+namespace LawnService.Data.ViewModels
 {
-    public class ChangePasswordViewModel
+    public class ChangePasswordVM
     {
         [Required(ErrorMessage = "Please enter password.")]
         public string OldPassword { get; set; }

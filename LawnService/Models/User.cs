@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace LawnService.Models.DomainModels
+namespace LawnService.Models
 {
     public class User : IdentityUser
     {

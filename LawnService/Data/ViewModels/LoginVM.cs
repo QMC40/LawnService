@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LawnService.Models.ViewModels
+namespace LawnService.Data.ViewModels
 {
-    public class LoginViewModel
+    public class LoginVM
     {
         [Required(ErrorMessage = "Please enter a username.")]
         [StringLength(255)]

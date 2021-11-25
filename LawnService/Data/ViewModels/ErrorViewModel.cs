@@ -1,7 +1,7 @@
 
-namespace LawnService.Models.ViewModels
+namespace LawnService.Data.ViewModels
 {
-    public class ErrorViewModel
+    public class ErrorVM
     {
         public string RequestId { get; set; }
 

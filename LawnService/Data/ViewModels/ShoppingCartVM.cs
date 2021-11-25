@@ -1,6 +1,6 @@
-﻿namespace LawnService.Models.ViewModels
+﻿namespace LawnService.Data.ViewModels
 {
-    public class ShoppingCartViewModel
+    public class ShoppingCartVM
     {
         public ShoppingCart ShoppingCart { get; set; }
         public double ShoppingCartTotal { get; set; }

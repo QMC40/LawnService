@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LawnService.Models.DomainModels
+namespace LawnService.Models
 {
     public class Position
     {

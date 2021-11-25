@@ -1,5 +1,5 @@
 ﻿
-namespace LawnService.Models.ViewModels
+namespace LawnService.Data.ViewModels
 {
     public static class Nav
     {

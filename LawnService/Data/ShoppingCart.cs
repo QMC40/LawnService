@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LawnService.Data;
-using LawnService.Models.DomainModels;
+using System.Threading.Tasks;
+using LawnService.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LawnService.Models.ViewModels
+namespace LawnService.Data
 {
     public class ShoppingCart
     {
@@ -14,12 +15,10 @@ namespace LawnService.Models.ViewModels
 
         public string ShoppingCartId { get; set; }
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }
-
         public ShoppingCart(LawnServiceDbContext context)
         {
             _context = context;
         }
-
         public static ShoppingCart GetShoppingCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
@@ -33,14 +32,14 @@ namespace LawnService.Models.ViewModels
         public void AddItemToCart(Product product)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.product.ProductId == product.ProductId
+            (n => n.Product.ProductId == product.ProductId
                   && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem()
                 {
                     ShoppingCartId = ShoppingCartId,
-                    product = product,
+                    Product = product,
                     Amount = 1
                 };
                 _context.ShoppingCartItems.Add(shoppingCartItem);
@@ -52,11 +51,10 @@ namespace LawnService.Models.ViewModels
 
             _context.SaveChanges();
         }
-
         public void RemoveItemFromCart(Product product)
         {
             var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.product.ProductId == product.ProductId
+            (n => n.Product.ProductId == product.ProductId
                   && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem != null)
             {
@@ -73,7 +71,12 @@ namespace LawnService.Models.ViewModels
                 _context.SaveChanges();
             }
         }
-
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = await _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToListAsync();
+            _context.ShoppingCartItems.RemoveRange(items);
+            await _context.SaveChangesAsync();
+        }
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ??= _context.ShoppingCartItems.Where
@@ -84,7 +87,7 @@ namespace LawnService.Models.ViewModels
         {
             var total = _context.ShoppingCartItems.Where
                 (n => n.ShoppingCartId == ShoppingCartId).Select
-                (n => n.product.CostPerHour * n.Amount).Sum();
+                (n => n.Product.CostPerHour * n.Amount).Sum();
             return total;
         }
     }

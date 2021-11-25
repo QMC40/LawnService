@@ -411,11 +411,11 @@ namespace LawnService.Migrations
 
             modelBuilder.Entity("LawnService.Models.DomainModels.ShoppingCartItem", b =>
                 {
-                    b.HasOne("LawnService.Models.DomainModels.Product", "product")
+                    b.HasOne("LawnService.Models.DomainModels.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.Navigation("product");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

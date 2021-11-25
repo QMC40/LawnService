@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LawnService.Models.DomainModels;
+using LawnService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +19,7 @@ namespace LawnService.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -53,6 +54,6 @@ namespace LawnService.Data
             }
         }
 
-        public DbSet<LawnService.Models.DomainModels.Product> Product { get; set; }
+        public DbSet<Product> Product { get; set; }
     }
 }

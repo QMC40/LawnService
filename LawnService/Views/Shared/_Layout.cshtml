@@ -1,6 +1,5 @@
-﻿@using LawnService.Models.DomainModels
-@using LawnService.Models.ViewModels
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
+@using LawnService.Data.ViewModels
 @{
     // use current controller or area to determine if tab is active
     var current = ViewContext.RouteData.Values["area"]?.ToString() ??
