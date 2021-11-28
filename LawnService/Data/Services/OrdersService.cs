@@ -14,10 +14,10 @@ namespace LawnService.Data.Services
             _context = context;
         }
 
-
-
         public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
+
+            //query not working right
             var orders = await _context.Orders.Include(n => n.OrderItems).ToListAsync();
             // .ThenInclude(n => n.ItemName).Include(n => n.User).ToListAsync();
 

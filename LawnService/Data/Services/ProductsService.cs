@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using LawnService.Data.Base;
 using LawnService.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace LawnService.Data.Services
 {
@@ -16,7 +15,7 @@ namespace LawnService.Data.Services
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            var product = await _context.Products.FirstOrDefaultAsync();
+            var product = await _context.Products.FindAsync(id);
             return product;
         }
     }

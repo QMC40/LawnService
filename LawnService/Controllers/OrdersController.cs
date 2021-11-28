@@ -29,7 +29,6 @@ namespace LawnService.Controllers
             var orders = await _ordersService.GetOrdersByUserIdAndRoleAsync(userId, userRole);
             return View(orders);
         }
-
         public IActionResult ShoppingCart()
         {
             var items = _shoppingCart.GetShoppingCartItems();
@@ -43,7 +42,6 @@ namespace LawnService.Controllers
 
             return View(response);
         }
-
         public async Task<IActionResult> AddItemToShoppingCart(int id)
         {
             var item = await _productsService.GetProductByIdAsync(id);
@@ -54,7 +52,6 @@ namespace LawnService.Controllers
             }
             return RedirectToAction(nameof(ShoppingCart));
         }
-
         public async Task<IActionResult> RemoveItemFromShoppingCart(int id)
         {
             var item = await _productsService.GetProductByIdAsync(id);
@@ -65,7 +62,6 @@ namespace LawnService.Controllers
             }
             return RedirectToAction(nameof(ShoppingCart));
         }
-
         public async Task<IActionResult> CompleteOrder()
         {
             var items = _shoppingCart.GetShoppingCartItems();

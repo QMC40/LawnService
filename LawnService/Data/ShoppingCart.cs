@@ -19,6 +19,8 @@ namespace LawnService.Data
         {
             _context = context;
         }
+
+
         public static ShoppingCart GetShoppingCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
@@ -31,9 +33,10 @@ namespace LawnService.Data
         }
         public void AddItemToCart(Product product)
         {
-            var shoppingCartItem = _context.ShoppingCartItems.FirstOrDefault
-            (n => n.Product.ProdId == product.ProdId
-                  && n.ShoppingCartId == ShoppingCartId);
+
+            var shoppingCartItem =
+                _context.ShoppingCartItems.FirstOrDefault(n => n.Product.ProdId == product.ProdId
+                                                               && n.ShoppingCartId == ShoppingCartId);
             if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem()
@@ -80,9 +83,10 @@ namespace LawnService.Data
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ??= _context.ShoppingCartItems.Where
-                (n => n.ShoppingCartId == ShoppingCartId).ToList();
+                (n => n.ShoppingCartId == ShoppingCartId)
+                .Include(p => p.Product)
+                .ToList();
         }
-
         public double GetShoppingCartTotal()
         {
             var total = _context.ShoppingCartItems.Where

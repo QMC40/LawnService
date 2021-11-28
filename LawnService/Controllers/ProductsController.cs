@@ -48,11 +48,11 @@ namespace LawnService.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProdId ,Name,Cost,Description")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _productsService.AddAsync(product);
+                await _productsService.AddAsync(product);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -62,11 +62,6 @@ namespace LawnService.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var product = await _productsService.GetProductByIdAsync(id);
             if (product == null)
             {
@@ -81,7 +76,7 @@ namespace LawnService.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProdId ,Name,Cost,Description")] Product product)
+        public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.ProdId)
             {
@@ -116,7 +111,11 @@ namespace LawnService.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productsService.GetProductByIdAsync(id);
-            if (product == null) { return NotFound(); }
+            if (product == null)
+            {
+                return NotFound();
+            }
+
             return View(product);
         }
 
@@ -125,8 +124,7 @@ namespace LawnService.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var producerDetails = await _productsService.
-                GetByIdAsync(id);
+            var producerDetails = await _productsService.GetByIdAsync(id);
             if (producerDetails == null) return View();
 
             await _productsService.DeleteAsync(id);

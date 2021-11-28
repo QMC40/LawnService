@@ -31,16 +31,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto" style="list-style-type: none;">
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-area="" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="Services">Services</a>
+                        <a class="nav-link text-uppercase" asp-controller="Products" asp-area="" asp-action="Index">Products and Services</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="ContactUs">Contact us</a>
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-area="" asp-action="ContactUs">Contact us</a>
                     </li>
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="Home" asp-action="About">About</a>
+                        <a class="nav-link text-uppercase" asp-controller="Home" asp-area="" asp-action="About">About</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase" asp-controller="Orders" asp-area="" asp-action="ShoppingCart">Cart</a>
                     </li>
                     @inject SignInManager<User> signInManager
                     @if (signInManager.IsSignedIn(User))
