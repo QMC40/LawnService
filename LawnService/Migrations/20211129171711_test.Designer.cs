@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawnService.Migrations
 {
     [DbContext(typeof(LawnServiceDbContext))]
-    [Migration("20211125051415_Initial")]
-    partial class Initial
+    [Migration("20211129171711_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,9 +127,11 @@ namespace LawnService.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProdId");

@@ -36,6 +36,7 @@ namespace LawnService.Data.Services
                 UserId = userId
             };
             await _context.Orders.AddAsync(order);
+            var irish = true;
             await _context.SaveChangesAsync();
 
             foreach (var item in items)
