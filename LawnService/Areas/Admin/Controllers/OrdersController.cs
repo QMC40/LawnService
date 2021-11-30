@@ -6,7 +6,7 @@ using LawnService.Data.Services;
 using LawnService.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LawnService.Controllers
+namespace LawnService.Areas.Admin.Controllers
 {
     public class OrdersController : Controller
     {

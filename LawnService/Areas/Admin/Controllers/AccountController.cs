@@ -4,7 +4,7 @@ using LawnService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LawnService.Controllers
+namespace LawnService.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {

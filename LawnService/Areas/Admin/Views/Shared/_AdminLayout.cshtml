@@ -17,6 +17,12 @@
             Manage Users
         </a>
     </li>
+    <li class="nav-item">
+        <a asp-action="ProductManager" asp-controller="Products"
+           class="nav-link @Nav.Active("Products", current)">
+            Manage Products
+        </a>
+    </li>
 </ul>
 
 @RenderBody()

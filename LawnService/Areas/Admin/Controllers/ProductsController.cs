@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using LawnService.Data.Services;
 using LawnService.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LawnService.Controllers
+namespace LawnService.Areas.Admin.Controllers
 {
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     // [Authorize(Roles = UserRoles.Admin)]
@@ -20,8 +19,15 @@ namespace LawnService.Controllers
             _productsService = productsService;
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        //[AllowAnonymous]
+        public async Task<IActionResult> ProductList()
+        {
+            var allProducts = await _productsService.GetAllAsync();
+            return View(allProducts);
+        }
+
+        //[Authorize]
+        public async Task<IActionResult> ProductManager()
         {
             var allProducts = await _productsService.GetAllAsync();
             return View(allProducts);
@@ -53,7 +59,7 @@ namespace LawnService.Controllers
             if (ModelState.IsValid)
             {
                 await _productsService.AddAsync(product);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ProductList));
             }
 
             return View(product);
@@ -101,7 +107,7 @@ namespace LawnService.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ProductList));
             }
 
             return View(product);
@@ -128,7 +134,7 @@ namespace LawnService.Controllers
             if (producerDetails == null) return View();
 
             await _productsService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ProductList));
         }
 
         private bool ProductExists(int id)

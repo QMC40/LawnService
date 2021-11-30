@@ -21,7 +21,7 @@ namespace LawnService.Controllers
 
         public IActionResult Services()
         {
-            return RedirectToAction("Index", "Products");
+            return RedirectToAction("ProductList", "Products");
         }
 
         public IActionResult ContactUs()

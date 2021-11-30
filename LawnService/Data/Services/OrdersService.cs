@@ -9,7 +9,6 @@ namespace LawnService.Data.Services
     public class OrdersService : IOrdersService
     {
         private readonly LawnServiceDbContext _context;
-
         public OrdersService(LawnServiceDbContext context)
         {
             _context = context;
@@ -17,6 +16,7 @@ namespace LawnService.Data.Services
 
         public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
         {
+
             //query not working right
             var orders = await _context.Orders.Include(n => n.OrderItems).ToListAsync();
             // .ThenInclude(n => n.ItemName).Include(n => n.User).ToListAsync();
@@ -49,7 +49,6 @@ namespace LawnService.Data.Services
                 };
                 await _context.OrderItems.AddAsync(orderItem);
             }
-
             await _context.SaveChangesAsync();
         }
     }
