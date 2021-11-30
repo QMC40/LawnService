@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawnService.Migrations
 {
     [DbContext(typeof(LawnServiceDbContext))]
-    [Migration("20211130020223_test2")]
-    partial class test2
+    [Migration("20211130025727_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -268,10 +268,10 @@ namespace LawnService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6c155d8a-103c-4e59-a336-d2e20b514a8f",
+                            Id = "c07a91b2-abd0-4c0d-8e02-7044e924a2f5",
                             AccessFailedCount = 0,
                             Address = "Countryside",
-                            ConcurrencyStamp = "324cc74f-a1a3-4eae-9802-455b9a8a6998",
+                            ConcurrencyStamp = "6fef4c0a-2823-4273-b1ca-99c622ce33ed",
                             Email = "hotstuff@yahoops.com",
                             EmailConfirmed = false,
                             FName = "Trogdor",
@@ -280,16 +280,16 @@ namespace LawnService.Migrations
                             NormalizedEmail = "HOTSTUFF@YAHOOPS.COM",
                             PhoneNumber = "555-1212",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b651fdc-d926-4395-93cf-7316c9c79464",
+                            SecurityStamp = "8b5cbf20-a6a7-495a-9928-95796a017317",
                             TwoFactorEnabled = false,
                             UserName = "hotstuff@yahoops.com"
                         },
                         new
                         {
-                            Id = "4df36937-3ee3-4884-b014-77932925740a",
+                            Id = "b46b229c-53ba-43d1-9195-51ce5fac00cf",
                             AccessFailedCount = 0,
                             Address = "southside",
-                            ConcurrencyStamp = "8a5ea2fb-c295-4cde-af05-6f9e22ec3bc9",
+                            ConcurrencyStamp = "2eee887b-3e26-40c4-982d-6e47ddbd660d",
                             Email = "Duke@yahoops.com",
                             EmailConfirmed = false,
                             FName = "John",
@@ -298,16 +298,16 @@ namespace LawnService.Migrations
                             NormalizedEmail = "DUKE@YAHOOPS.COM",
                             PhoneNumber = "555-4242",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7cbb1bd7-7b1d-4a9f-8d14-f09aa89987f8",
+                            SecurityStamp = "11d52631-d27a-4c81-878e-f292e4b5d40f",
                             TwoFactorEnabled = false,
                             UserName = "Duke@yahoops.com"
                         },
                         new
                         {
-                            Id = "346987e6-5cca-4b32-8a87-27bad09f1ef4",
+                            Id = "1e9c3dbb-cac0-4b0b-9bc6-a6830ba227b1",
                             AccessFailedCount = 0,
                             Address = "Portland",
-                            ConcurrencyStamp = "69a0ca43-bb3b-4059-b838-c294fd6ec782",
+                            ConcurrencyStamp = "b5ebe2a5-b531-4657-8584-df98a8f558db",
                             Email = "OMGawd@yahoops.com",
                             EmailConfirmed = false,
                             FName = "Tammy",
@@ -316,16 +316,16 @@ namespace LawnService.Migrations
                             NormalizedEmail = "OMGAWD@YAHOOPS.COM",
                             PhoneNumber = "555-3578",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9048cbc3-d65b-4ad2-afad-b5f8133878b2",
+                            SecurityStamp = "9f5318dc-6465-4c6f-a656-e80bb3efd3f8",
                             TwoFactorEnabled = false,
                             UserName = "OMGawd@yahoops.com"
                         },
                         new
                         {
-                            Id = "37eea19a-3402-41fc-a2f6-5866b22bafc2",
+                            Id = "54258a4c-2c69-4d26-bb8b-9fa6ff2dee63",
                             AccessFailedCount = 0,
                             Address = "Annaville",
-                            ConcurrencyStamp = "be8c02c3-b18d-4a67-b9b7-bd86ba0d0148",
+                            ConcurrencyStamp = "05f243a3-ed7f-4722-902a-a8fbaf8b7570",
                             Email = "wyrm@yahoops.com",
                             EmailConfirmed = false,
                             FName = "Larry",
@@ -334,7 +334,7 @@ namespace LawnService.Migrations
                             NormalizedEmail = "WYRM@YAHOOPS.COM",
                             PhoneNumber = "555-8946",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f9aeb79-ee0a-4e99-8458-6ad773da5aaf",
+                            SecurityStamp = "1789424d-96aa-42e0-ad60-8d20b4403626",
                             TwoFactorEnabled = false,
                             UserName = "wyrm@yahoops.com"
                         });
@@ -482,17 +482,11 @@ namespace LawnService.Migrations
                 {
                     b.HasBaseType("LawnService.Models.User");
 
-                    b.Property<DateTime>("DoB")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
-
-                    b.Property<string>("SSN")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");
                 });

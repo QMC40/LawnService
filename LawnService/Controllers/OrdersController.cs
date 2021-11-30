@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using LawnService.Data;
 using LawnService.Data.Services;
@@ -68,10 +69,18 @@ namespace LawnService.Controllers
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-            await _ordersService.StoreOrderAsync(items, userId);
-            await _shoppingCart.ClearShoppingCartAsync();
+            var temp = "wait here";
 
-            return View("OrderCompleted");
+            try
+            {
+                await _ordersService.StoreOrderAsync(items, userId);
+                await _shoppingCart.ClearShoppingCartAsync();
+                return View("OrderComplete");
+            }
+            catch (Exception e)
+            {
+                return Ok(e.InnerException);
+            }
         }
 
     }

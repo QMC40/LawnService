@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LawnService.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,8 +31,6 @@ namespace LawnService.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SSN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoB = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Position = table.Column<int>(type: "int", nullable: true),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -261,6 +259,28 @@ namespace LawnService.Migrations
                         principalTable: "Product",
                         principalColumn: "ProdId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FName", "LName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "c07a91b2-abd0-4c0d-8e02-7044e924a2f5", 0, "Countryside", "6fef4c0a-2823-4273-b1ca-99c622ce33ed", "User", "hotstuff@yahoops.com", false, "Trogdor", "Burninator", false, null, "HOTSTUFF@YAHOOPS.COM", null, null, "555-1212", false, "8b5cbf20-a6a7-495a-9928-95796a017317", false, "hotstuff@yahoops.com" },
+                    { "b46b229c-53ba-43d1-9195-51ce5fac00cf", 0, "southside", "2eee887b-3e26-40c4-982d-6e47ddbd660d", "User", "Duke@yahoops.com", false, "John", "Wayne", false, null, "DUKE@YAHOOPS.COM", null, null, "555-4242", false, "11d52631-d27a-4c81-878e-f292e4b5d40f", false, "Duke@yahoops.com" },
+                    { "1e9c3dbb-cac0-4b0b-9bc6-a6830ba227b1", 0, "Portland", "b5ebe2a5-b531-4657-8584-df98a8f558db", "User", "OMGawd@yahoops.com", false, "Tammy", "Baker", false, null, "OMGAWD@YAHOOPS.COM", null, null, "555-3578", false, "9f5318dc-6465-4c6f-a656-e80bb3efd3f8", false, "OMGawd@yahoops.com" },
+                    { "54258a4c-2c69-4d26-bb8b-9fa6ff2dee63", 0, "Annaville", "05f243a3-ed7f-4722-902a-a8fbaf8b7570", "User", "wyrm@yahoops.com", false, "Larry", "Linville", false, null, "WYRM@YAHOOPS.COM", null, null, "555-8946", false, "1789424d-96aa-42e0-ad60-8d20b4403626", false, "wyrm@yahoops.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProdId", "CostPerUnit", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, 50.0, "weedeat and edge by the hour", "Weed eating" },
+                    { 2, 35.0, "Mow by the hour", "Mowing" },
+                    { 3, 100.0, "Fertilize 100 sq ft of grass", "Fertilize" },
+                    { 4, 55.0, "Gather and remove 100 cubic ft of leaves", "Leaf removal" }
                 });
 
             migrationBuilder.CreateIndex(
