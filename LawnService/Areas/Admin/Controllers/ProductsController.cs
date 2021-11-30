@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using LawnService.Data.Services;
 using LawnService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,6 @@ namespace LawnService.Areas.Admin.Controllers
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     // [Authorize(Roles = UserRoles.Admin)]
     [Area("Admin")]
-
 
     public class ProductsController : Controller
     {
@@ -20,21 +20,21 @@ namespace LawnService.Areas.Admin.Controllers
             _productsService = productsService;
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> ProductList()
         {
             var allProducts = await _productsService.GetAllAsync();
             return View(allProducts);
         }
 
-        //[Authorize]
         public async Task<IActionResult> ProductManager()
         {
             var allProducts = await _productsService.GetAllAsync();
             return View(allProducts);
         }
 
-        // GET: Products/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productsService.GetProductByIdAsync(id);
@@ -46,13 +46,12 @@ namespace LawnService.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
@@ -60,13 +59,13 @@ namespace LawnService.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 await _productsService.AddAsync(product);
-                return RedirectToAction(nameof(ProductList));
+                return RedirectToAction(nameof(ProductManager));
             }
 
             return View(product);
         }
 
-        // GET: Products/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _productsService.GetProductByIdAsync(id);
@@ -78,9 +77,6 @@ namespace LawnService.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Product product)
@@ -108,13 +104,13 @@ namespace LawnService.Areas.Admin.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(ProductList));
+                return RedirectToAction(nameof(ProductManager));
             }
 
             return View(product);
         }
 
-        // GET: Products/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productsService.GetProductByIdAsync(id);
@@ -126,7 +122,6 @@ namespace LawnService.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -135,7 +130,7 @@ namespace LawnService.Areas.Admin.Controllers
             if (producerDetails == null) return View();
 
             await _productsService.DeleteAsync(id);
-            return RedirectToAction(nameof(ProductList));
+            return RedirectToAction(nameof(ProductManager));
         }
 
         private bool ProductExists(int id)

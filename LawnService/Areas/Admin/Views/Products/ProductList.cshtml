@@ -36,7 +36,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.ProdId">Add</a> |
+                <a class="text-success" asp-controller="Orders" asp-area="" asp-action="AddItemToShoppingCart"
+                   asp-route-id="@item.ProdId">
+                    <i class="bi bi-cart-plus"></i>
+                </a> |
                 <a asp-action="Details" asp-route-id="@item.ProdId ">Details</a> |
             </td>
         </tr>

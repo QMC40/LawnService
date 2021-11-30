@@ -19,8 +19,6 @@ namespace LawnService.Data
         {
             _context = context;
         }
-
-
         public static ShoppingCart GetShoppingCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;

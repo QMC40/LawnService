@@ -43,9 +43,9 @@
                     <li class="nav-item px-lg-4">
                         <a class="nav-link text-uppercase" asp-controller="Home" asp-area="" asp-action="About">About</a>
                     </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase" asp-controller="Orders" asp-area="" asp-action="ShoppingCart">Cart</a>
-                    </li>
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
                     @inject SignInManager<User> signInManager
                     @if (signInManager.IsSignedIn(User))
                     {
@@ -54,13 +54,14 @@
                             <form method="post" asp-action="Logout" asp-controller="Account"
                                   asp-area="">
                                 <input type="submit" value="LOG OUT"
-                                       class="btn btn-outline-light"/>
+                                       class="btn btn-outline-light" />
                                 <span class="text-light">@User.Identity.Name</span>
                             </form>
                         </li>
                         <li class="nav-item px-lg-4">
                             <a class="nav-link" asp-action="ChangePassword" asp-controller="User" asp-area="Admin">
-                                <span class="fas fa-cog"></span>&nbsp;Change Password</a>
+                                <span class="fas fa-cog"></span>&nbsp;Change Password
+                            </a>
                         </li>
                     }
                     else
@@ -83,7 +84,8 @@
                     }
                     <li class="nav-item px-lg-4 @Nav.Active("Admin", current)">
                         <a class="nav-link" asp-action="Index" asp-controller="User" asp-area="Admin">
-                            <span class="fas fa-cog"></span>&nbsp;ADMIN</a>
+                            <span class="fas fa-cog"></span>&nbsp;ADMIN
+                        </a>
                     </li>
                 </ul>
             </div>
