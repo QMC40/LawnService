@@ -8,6 +8,7 @@ namespace LawnService.Areas.Admin.Controllers
 {
     //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     // [Authorize(Roles = UserRoles.Admin)]
+    [Area("Admin")]
 
 
     public class ProductsController : Controller

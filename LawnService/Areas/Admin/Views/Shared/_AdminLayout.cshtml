@@ -1,7 +1,6 @@
 ﻿@using LawnService.Data.ViewModels
 @{
     Layout = "_Layout";
-
     var current = ViewContext.RouteData.Values["controller"]?.ToString();
 }
 
@@ -18,7 +17,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a asp-action="ProductManager" asp-controller="Products"
+        <a asp-action="ProductManager" asp-area="Admin" asp-controller="Products"
            class="nav-link @Nav.Active("Products", current)">
             Manage Products
         </a>
