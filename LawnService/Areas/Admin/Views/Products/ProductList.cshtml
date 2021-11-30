@@ -3,46 +3,47 @@
 @{
     ViewData["Title"] = "Product List";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/ProductListStyleSheet.css" />
 }
 
 <h1>Product List</h1>
 
 <table class="table">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CostPerUnit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostPerUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostPerUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a class="text-success" asp-controller="Orders" asp-area="" asp-action="AddItemToShoppingCart"
-                   asp-route-id="@item.ProdId">
-                    <i class="bi bi-cart-plus" style="font-size:1.3rem;"></i>
-                </a> |
-                <a asp-action="Details" asp-route-id="@item.ProdId ">Details</a> |
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CostPerUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a class="text-success" asp-controller="Orders" asp-area="" asp-action="AddItemToShoppingCart"
+                       asp-route-id="@item.ProdId">
+                        <i class="bi bi-cart-plus" style="font-size:1.3rem;"></i>
+                    </a> |
+                    <a asp-action="Details" asp-route-id="@item.ProdId ">Details</a> |
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -1,6 +1,7 @@
 ﻿@model LawnService.Data.ViewModels.RegisterVM
 @{
     ViewBag.Title = "Register";
+    <link rel="stylesheet" href="~/css/RegisterStyleSheet.css" />
 }
 
 
@@ -13,7 +14,7 @@
             <label>Email address</label>
         </div>
         <div class="col-sm-4">
-            <input asp-for="Email" class="form-control"/>
+            <input asp-for="Email" class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="Email"
@@ -27,7 +28,7 @@
         </div>
         <div class="col-sm-4">
             <input type="text" asp-for="FName"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="FName"
@@ -41,7 +42,7 @@
         </div>
         <div class="col-sm-4">
             <input type="text" asp-for="LName"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="LName"
@@ -55,7 +56,7 @@
         </div>
         <div class="col-sm-4">
             <input type="date" asp-for="DoB"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="DoB"
@@ -69,7 +70,7 @@
         </div>
         <div class="col-sm-4">
             <input type="text" asp-for="Address"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="Address"
@@ -83,7 +84,7 @@
         </div>
         <div class="col-sm-4">
             <input type="text" asp-for="PhoneNumber"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="PhoneNumber"
@@ -97,7 +98,7 @@
         </div>
         <div class="col-sm-4">
             <input type="password" asp-for="Password"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="Password"
@@ -111,7 +112,7 @@
         </div>
         <div class="col-sm-4">
             <input type="password" asp-for="ConfirmPassword"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="ConfirmPassword"
