@@ -12,7 +12,7 @@
             <label>Email address</label>
         </div>
         <div class="col-sm-4">
-            <input asp-for="Email" class="form-control" readonly/>
+            <input asp-for="Email" class="form-control"/>
         </div>
     </div>
     <div class="form-group row">
@@ -39,34 +39,6 @@
         </div>
         <div class="col">
             <span asp-validation-for="LName"
-                  class="text-danger">
-            </span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label>SSN:</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" asp-for="SSN"
-                   class="form-control"/>
-        </div>
-        <div class="col">
-            <span asp-validation-for="SSN"
-                  class="text-danger">
-            </span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label>Date of Birth:</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="date" asp-for="DoB" value="1990-01-01" min="1930-01-01" max="2030-01-01"
-                   class="form-control"/>
-        </div>
-        <div class="col">
-            <span asp-validation-for="DoB"
                   class="text-danger">
             </span>
         </div>

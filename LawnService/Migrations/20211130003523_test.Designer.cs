@@ -4,14 +4,16 @@ using LawnService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LawnService.Migrations
 {
     [DbContext(typeof(LawnServiceDbContext))]
-    partial class LawnServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211130003523_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,36 +131,6 @@ namespace LawnService.Migrations
                     b.HasKey("ProdId");
 
                     b.ToTable("Product");
-
-                    b.HasData(
-                        new
-                        {
-                            ProdId = 1,
-                            CostPerUnit = 50.0,
-                            Description = "weedeat and edge by the hour",
-                            Name = "Weed eating"
-                        },
-                        new
-                        {
-                            ProdId = 2,
-                            CostPerUnit = 35.0,
-                            Description = "Mow by the hour",
-                            Name = "Mowing"
-                        },
-                        new
-                        {
-                            ProdId = 3,
-                            CostPerUnit = 100.0,
-                            Description = "Fertilize 100 sq ft of grass",
-                            Name = "Fertilize"
-                        },
-                        new
-                        {
-                            ProdId = 4,
-                            CostPerUnit = 55.0,
-                            Description = "Gather and remove 100 cubic ft of leaves",
-                            Name = "Leaf removal"
-                        });
                 });
 
             modelBuilder.Entity("LawnService.Models.ShoppingCartItem", b =>
@@ -262,80 +234,6 @@ namespace LawnService.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "6c155d8a-103c-4e59-a336-d2e20b514a8f",
-                            AccessFailedCount = 0,
-                            Address = "Countryside",
-                            ConcurrencyStamp = "324cc74f-a1a3-4eae-9802-455b9a8a6998",
-                            Email = "hotstuff@yahoops.com",
-                            EmailConfirmed = false,
-                            FName = "Trogdor",
-                            LName = "Burninator",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "HOTSTUFF@YAHOOPS.COM",
-                            PhoneNumber = "555-1212",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b651fdc-d926-4395-93cf-7316c9c79464",
-                            TwoFactorEnabled = false,
-                            UserName = "hotstuff@yahoops.com"
-                        },
-                        new
-                        {
-                            Id = "4df36937-3ee3-4884-b014-77932925740a",
-                            AccessFailedCount = 0,
-                            Address = "southside",
-                            ConcurrencyStamp = "8a5ea2fb-c295-4cde-af05-6f9e22ec3bc9",
-                            Email = "Duke@yahoops.com",
-                            EmailConfirmed = false,
-                            FName = "John",
-                            LName = "Wayne",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DUKE@YAHOOPS.COM",
-                            PhoneNumber = "555-4242",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7cbb1bd7-7b1d-4a9f-8d14-f09aa89987f8",
-                            TwoFactorEnabled = false,
-                            UserName = "Duke@yahoops.com"
-                        },
-                        new
-                        {
-                            Id = "346987e6-5cca-4b32-8a87-27bad09f1ef4",
-                            AccessFailedCount = 0,
-                            Address = "Portland",
-                            ConcurrencyStamp = "69a0ca43-bb3b-4059-b838-c294fd6ec782",
-                            Email = "OMGawd@yahoops.com",
-                            EmailConfirmed = false,
-                            FName = "Tammy",
-                            LName = "Baker",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "OMGAWD@YAHOOPS.COM",
-                            PhoneNumber = "555-3578",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "9048cbc3-d65b-4ad2-afad-b5f8133878b2",
-                            TwoFactorEnabled = false,
-                            UserName = "OMGawd@yahoops.com"
-                        },
-                        new
-                        {
-                            Id = "37eea19a-3402-41fc-a2f6-5866b22bafc2",
-                            AccessFailedCount = 0,
-                            Address = "Annaville",
-                            ConcurrencyStamp = "be8c02c3-b18d-4a67-b9b7-bd86ba0d0148",
-                            Email = "wyrm@yahoops.com",
-                            EmailConfirmed = false,
-                            FName = "Larry",
-                            LName = "Linville",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "WYRM@YAHOOPS.COM",
-                            PhoneNumber = "555-8946",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f9aeb79-ee0a-4e99-8458-6ad773da5aaf",
-                            TwoFactorEnabled = false,
-                            UserName = "wyrm@yahoops.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

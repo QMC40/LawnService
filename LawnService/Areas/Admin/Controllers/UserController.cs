@@ -68,9 +68,10 @@ namespace LawnService.Areas.Admin.Controllers
                     Email = user.Email,
                     FName = user.FName,
                     LName = user.LName,
-                    PhoneNumber = user.PhoneNumber
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address
                 };
-                return View(subj); //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                return View(subj);
             }
 
             return Ok("fail");
@@ -81,16 +82,24 @@ namespace LawnService.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.FindByNameAsync(model.Email);
-                user.Email = model.Email;
-                user.FName = model.FName;
-                user.LName = model.LName;
-                user.PhoneNumber = model.PhoneNumber;
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    user.Email = model.Email;
+                    user.FName = model.FName;
+                    user.LName = model.LName;
+                    user.Address = model.Address;
+                    user.PhoneNumber = model.PhoneNumber;
 
-                var result = await userManager.UpdateAsync(user);
-                if (result.Succeeded)
-                    return RedirectToAction("Index");
-                foreach (var error in result.Errors) ModelState.AddModelError("", error.Description);
+                    var result = await userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
+                    foreach (var error in result.Errors) ModelState.AddModelError("", error.Description);
+                }
+                else
+                {
+                    return Ok("nope");
+                }
             }
 
             return Ok("yep");
@@ -114,7 +123,8 @@ namespace LawnService.Areas.Admin.Controllers
                     Email = model.Email,
                     FName = model.FName,
                     LName = model.LName,
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address
                 };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

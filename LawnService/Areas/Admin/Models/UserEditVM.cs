@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LawnService.Areas.Admin.Models
 {
@@ -16,14 +15,6 @@ namespace LawnService.Areas.Admin.Models
         [Required(ErrorMessage = "Last name required")]
         [StringLength(60, ErrorMessage = "enter something", MinimumLength = 3)]
         public string LName { get; set; }
-
-        [Required(ErrorMessage = "Valid SSN required.")]
-        [RegularExpression("^\\d{3}-\\d{2}-\\d{4}$")]
-        public string SSN { get; set; }
-
-        [Required(ErrorMessage = "Date of Birth required.")]
-        [DataType(DataType.Date)]
-        public DateTime DoB { get; set; }
 
         [Required(ErrorMessage = "Please enter current address.")]
         public string Address { get; set; }

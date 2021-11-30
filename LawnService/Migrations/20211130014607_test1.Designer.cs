@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawnService.Migrations
 {
     [DbContext(typeof(LawnServiceDbContext))]
-    [Migration("20211129171249_Initial")]
-    partial class Initial
+    [Migration("20211130014607_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,61 +21,6 @@ namespace LawnService.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("LawnService.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUser");
-                });
-
             modelBuilder.Entity("LawnService.Models.EstimateRequest", b =>
                 {
                     b.Property<int>("RequestId")
@@ -83,7 +28,7 @@ namespace LawnService.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -101,12 +46,6 @@ namespace LawnService.Migrations
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Zip")
-                        .HasColumnType("int");
-
                     b.HasKey("RequestId");
 
                     b.ToTable("EstimateRequests");
@@ -120,11 +59,9 @@ namespace LawnService.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -194,6 +131,36 @@ namespace LawnService.Migrations
                     b.HasKey("ProdId");
 
                     b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            ProdId = 1,
+                            CostPerUnit = 50.0,
+                            Description = "weedeat and edge by the hour",
+                            Name = "Weed eating"
+                        },
+                        new
+                        {
+                            ProdId = 2,
+                            CostPerUnit = 35.0,
+                            Description = "Mow by the hour",
+                            Name = "Mowing"
+                        },
+                        new
+                        {
+                            ProdId = 3,
+                            CostPerUnit = 100.0,
+                            Description = "Fertilize 100 sq ft of grass",
+                            Name = "Fertilize"
+                        },
+                        new
+                        {
+                            ProdId = 4,
+                            CostPerUnit = 55.0,
+                            Description = "Gather and remove 100 cubic ft of leaves",
+                            Name = "Leaf removal"
+                        });
                 });
 
             modelBuilder.Entity("LawnService.Models.ShoppingCartItem", b =>
@@ -227,7 +194,7 @@ namespace LawnService.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -277,18 +244,12 @@ namespace LawnService.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("Zip")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -303,6 +264,80 @@ namespace LawnService.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a0c6c5f0-8910-41cf-bace-a1d163cf9c39",
+                            AccessFailedCount = 0,
+                            Address = "Countryside",
+                            ConcurrencyStamp = "c43ae5cc-aa5f-4b44-9342-c9ea8399d09e",
+                            Email = "hotstuff@yahoops.com",
+                            EmailConfirmed = false,
+                            FName = "Trogdor",
+                            LName = "Burninator",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "HOTSTUFF@YAHOOPS.COM",
+                            PhoneNumber = "555-1212",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "727494b4-d95e-4eb5-9f63-eb2ef11dad48",
+                            TwoFactorEnabled = false,
+                            UserName = "hotstuff@yahoops.com"
+                        },
+                        new
+                        {
+                            Id = "29118a36-517b-4304-886b-3d0fbc31cfe1",
+                            AccessFailedCount = 0,
+                            Address = "southside",
+                            ConcurrencyStamp = "c367c849-c9bb-4efa-95cc-6b7fab0cad8d",
+                            Email = "Duke@yahoops.com",
+                            EmailConfirmed = false,
+                            FName = "John",
+                            LName = "Wayne",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DUKE@YAHOOPS.COM",
+                            PhoneNumber = "555-4242",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5fbb53ea-12c4-4318-8c3a-3e6fdf9aae50",
+                            TwoFactorEnabled = false,
+                            UserName = "Duke@yahoops.com"
+                        },
+                        new
+                        {
+                            Id = "50514085-d0be-4d2f-8b62-ad0d2f2cbf25",
+                            AccessFailedCount = 0,
+                            Address = "Portland",
+                            ConcurrencyStamp = "85281736-1200-4bff-97d8-aa498f3170dc",
+                            Email = "OMGawd@yahoops.com",
+                            EmailConfirmed = false,
+                            FName = "Tammy",
+                            LName = "Baker",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "OMGAWD@YAHOOPS.COM",
+                            PhoneNumber = "555-3578",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2bb0e00c-1deb-4d8e-a708-82c6217aa785",
+                            TwoFactorEnabled = false,
+                            UserName = "OMGawd@yahoops.com"
+                        },
+                        new
+                        {
+                            Id = "8ce70001-d822-4fe8-9d2e-742fc6b05623",
+                            AccessFailedCount = 0,
+                            Address = "Annaville",
+                            ConcurrencyStamp = "fe271a1e-1c33-4fbb-900e-14e9a2088604",
+                            Email = "wyrm@yahoops.com",
+                            EmailConfirmed = false,
+                            FName = "Larry",
+                            LName = "Linville",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "WYRM@YAHOOPS.COM",
+                            PhoneNumber = "555-8946",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "21a9eb87-778a-41ed-a2ea-2665d21faa88",
+                            TwoFactorEnabled = false,
+                            UserName = "wyrm@yahoops.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -460,15 +495,6 @@ namespace LawnService.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");
-                });
-
-            modelBuilder.Entity("LawnService.Models.Order", b =>
-                {
-                    b.HasOne("LawnService.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LawnService.Models.OrderItem", b =>

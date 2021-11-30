@@ -9,9 +9,7 @@ namespace LawnService.Models
         public string FName { get; set; }
         public string LName { get; set; }
         public override string PhoneNumber { get; set; }
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public int Zip { get; set; }
+        public string Address { get; set; }
 
         [NotMapped] public IList<string> RoleNames { get; set; }
     }

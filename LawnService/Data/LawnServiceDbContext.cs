@@ -24,6 +24,89 @@ namespace LawnService.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // code that configures the DbSet entities goes here
+            base.OnModelCreating(modelBuilder);
+
+            //seed data for testing / demonstration
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    UserName = "hotstuff@yahoops.com",
+                    Email = "hotstuff@yahoops.com",
+                    NormalizedEmail = "HOTSTUFF@YAHOOPS.COM",
+                    FName = "Trogdor",
+                    LName = "Burninator",
+                    PhoneNumber = "555-1212",
+                    Address = "Countryside"
+                },
+                new User
+                {
+                    UserName = "Duke@yahoops.com",
+                    Email = "Duke@yahoops.com",
+                    NormalizedEmail = "DUKE@YAHOOPS.COM",
+                    FName = "John",
+                    LName = "Wayne",
+                    PhoneNumber = "555-4242",
+                    Address = "southside"
+                },
+                new User
+                {
+                    UserName = "OMGawd@yahoops.com",
+                    Email = "OMGawd@yahoops.com",
+                    NormalizedEmail = "OMGAWD@YAHOOPS.COM",
+                    FName = "Tammy",
+                    LName = "Baker",
+                    PhoneNumber = "555-3578",
+                    Address = "Portland"
+                },
+                new User
+                {
+                    UserName = "wyrm@yahoops.com",
+                    Email = "wyrm@yahoops.com",
+                    NormalizedEmail = "WYRM@YAHOOPS.COM",
+                    FName = "Larry",
+                    LName = "Linville",
+                    PhoneNumber = "555-8946",
+                    Address = "Annaville"
+                }
+            );
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    ProdId = 1,
+                    Name = "Weed eating",
+                    CostPerUnit = 50.0,
+                    Description = "weedeat and edge by the hour"
+                },
+                new Product
+                {
+                    ProdId = 2,
+                    Name = "Mowing",
+                    CostPerUnit = 35.0,
+                    Description = "Mow by the hour"
+                },
+                new Product
+                {
+                    ProdId = 3,
+                    Name = "Fertilize",
+                    CostPerUnit = 100.0,
+                    Description = "Fertilize 100 sq ft of grass"
+                },
+                new Product
+                {
+                    ProdId = 4,
+                    Name = "Leaf removal",
+                    CostPerUnit = 55.0,
+                    Description = "Gather and remove 100 cubic ft of leaves"
+                }
+            );
+
+        }
+
+
         public static async Task CreateAdminUser(IServiceProvider serviceProvider)
         {
             var userManager =
@@ -37,7 +120,6 @@ namespace LawnService.Data
             var roleName = "Admin";
             var FName = "Admin";
             var LName = "Admin";
-            var SSN = "000-00-0000";
             var PhoneNumber = "000-0000";
             var Address = "none";
 
@@ -48,7 +130,15 @@ namespace LawnService.Data
             // if username doesn't exist, create it and add to role
             if (await userManager.FindByNameAsync(username) == null)
             {
-                User user = new() { UserName = username };
+                User user = new()
+                {
+                    UserName = username,
+                    Email = Email,
+                    FName = FName,
+                    LName = LName,
+                    PhoneNumber = PhoneNumber,
+                    Address = Address
+                };
                 var result = await userManager.CreateAsync(user, password);
                 if (result.Succeeded) await userManager.AddToRoleAsync(user, roleName);
             }
