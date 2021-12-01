@@ -1,6 +1,7 @@
 ﻿@model LawnService.Data.ViewModels.LoginVM
 @{
     ViewBag.Title = "Login";
+    <link rel="stylesheet" href="~/css/LoginStyleSheet.css" />
 }
 <h1>Login</h1>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -11,7 +12,7 @@
             <label>Username:</label>
         </div>
         <div class="col-sm-4">
-            <input asp-for="Username" class="form-control"/>
+            <input asp-for="Username" class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="Username" class="text-danger"></span>
@@ -23,7 +24,7 @@
         </div>
         <div class="col-sm-4">
             <input type="password" asp-for="Password"
-                   class="form-control"/>
+                   class="form-control" />
         </div>
         <div class="col">
             <span asp-validation-for="Password" class="text-danger"></span>
@@ -32,7 +33,7 @@
     <div class="form-group row">
         <div class="offset-sm-2 col-sm-4">
             <input type="checkbox" title="Remember Me" asp-for="RememberMe"
-                   class="form-check"/>
+                   class="form-check" />
             <label>Remember Me</label>
         </div>
     </div>
