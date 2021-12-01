@@ -4,7 +4,7 @@ using LawnService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LawnService.Areas.Admin.Controllers
+namespace LawnService.Controllers
 {
     public class AccountController : Controller
     {
@@ -27,7 +27,7 @@ namespace LawnService.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = new User
                 {
@@ -83,6 +83,14 @@ namespace LawnService.Areas.Admin.Controllers
 
             ModelState.AddModelError("", "Invalid username/password.");
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var subj = new ChangePasswordVM();
+
+            return View(subj);
         }
 
         public ViewResult AccessDenied()

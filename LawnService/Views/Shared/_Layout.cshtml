@@ -44,22 +44,21 @@
                         <a class="nav-link text-uppercase" asp-controller="Home" asp-area="" asp-action="About">About</a>
                     </li>
                     <ul class="navbar-nav">
-                        @await Component.InvokeAsync("ShoppingCartSummary")
+                        <a class="nav-link text-uppercase" asp-controller="Orders" asp-area="" asp-action="ShoppingCart">@await Component.InvokeAsync("ShoppingCartSummary")</a> 
                     </ul>
                     @inject SignInManager<User> signInManager
                     @if (signInManager.IsSignedIn(User))
                     {
                         // signed-in user - Log Out button and username
                         <li class="nav-item px-lg-4">
-                            <form method="post" asp-action="Logout" asp-controller="Account"
-                                  asp-area="">
+                            <form method="post" asp-action="Logout" asp-controller="Account">
                                 <input type="submit" value="LOG OUT"
                                        class="btn btn-outline-light" />
                                 <span class="text-light">@User.Identity.Name</span>
                             </form>
                         </li>
                         <li class="nav-item px-lg-4">
-                            <a class="nav-link" asp-action="ChangePassword" asp-controller="User" asp-area="Admin">
+                            <a class="nav-link" asp-action="ChangePassword" asp-controller="Account" asp-area="">
                                 <span class="fas fa-cog"></span>&nbsp;Change Password
                             </a>
                         </li>
@@ -71,13 +70,12 @@
                         // anonymous user - Register link and Log In button
                         <li class="nav-item px-lg-4 @Nav.Active("Register", action)">
                             <a asp-action="Register" asp-controller="Account"
-                               asp-area="" class="nav-link">
+                               class="nav-link">
                                 REGISTER
                             </a>
                         </li>
                         <li class="nav-item px-lg-4">
-                            <a asp-action="Login" asp-controller="Account"
-                               asp-area="" class="btn btn-outline-light">
+                            <a asp-action="Login"  asp-controller="Account" class="btn btn-outline-light">
                                 LOG IN
                             </a>
                         </li>
@@ -94,12 +92,12 @@
 </header>
 
 <div class="container">
-    <main role="main" class="pb-3">
+    <main role="main" class="d-flex flex-column min-vh-100 pb-3">
         @RenderBody()
     </main>
 </div>
 
-<footer class="footer text-faded text-center py-5">
+<footer class="footer mt-auto text-faded text-center py-5">
     <div class="container">
         <h4>
             <strong>Citations / Refs</strong>

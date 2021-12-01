@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using LawnService.Areas.Admin.Models;
 using LawnService.Data.ViewModels;
 using LawnService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace LawnService.Areas.Admin.Controllers
 {
-    // [Authorize(Roles = "Admin")]    //XXXXXX turned off during development XXXXXXXXXX
+
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -22,6 +24,7 @@ namespace LawnService.Areas.Admin.Controllers
             roleManager = roleMngr;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             List<User> users = new();
@@ -188,15 +191,8 @@ namespace LawnService.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult ChangePassword()
-        {
-            var subj = new ChangePasswordVM();
-
-            return View(subj);
-        }
-
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(
             ChangePasswordVM model)
         {
@@ -207,7 +203,7 @@ namespace LawnService.Areas.Admin.Controllers
                     model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home", new { area = "area" });
                 }
                 else
                 {
@@ -219,6 +215,11 @@ namespace LawnService.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+        public ViewResult AccessDenied()
+        {
+            return View();
         }
     }
 }
